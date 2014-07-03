@@ -17,7 +17,11 @@ Ubuntu 12.04 precise
 
 ####Install Flex SDK
 
-	./install_flex.sh
+	git clone git@github.com:johansyd/flex-installer.git
+	mkdir ~/flex
+	cp flex-installer/install_flex.sh ~/flex/install.sh
+	cd ~/flex
+	./install.sh
 
 NB: After you are finished with the install dialogs, get yourself a cup of coffe.
 
