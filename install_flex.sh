@@ -33,4 +33,4 @@ then
 fi
 echo 'export PATH=$PATH:'"$dir/bin" >> ~/.bashrc
 source ~/.bashrc
-mxmlc --version && echo 'flex compiler installed!' && echo "execute mxmlc --help to see how to use this compiler or go to http://github.com/aptoma/flex-installer to read some usage scenarios.' && exit 0) || echo 'Something went wrong. flex compiler not installed.'
+mxmlc --version && echo 'flex compiler installed!' && echo "execute mxmlc --help to see how to use this compiler or go to http://github.com/aptoma/flex-installer to read some usage scenarios.' && exit 0)" || echo 'Something went wrong. flex compiler not installed.'
