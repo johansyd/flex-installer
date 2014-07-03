@@ -7,7 +7,7 @@ To compile flex and flash projects on Ubuntu 64
 
 ####Dependencies:
 
-libhal-storage1 && (libgnome-keyring01 || kwalletcli) && lib32nss-mdns && ia32-libs
+java-package, openjdk-7-jdk and ant
 
 ####Tested on:
 
