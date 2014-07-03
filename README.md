@@ -3,7 +3,9 @@ flex-installer
 
 flex-installer Installing flex from the command line for compiling actionscript and flex
 
-To compile flex and flash projects on Ubuntu 64
+###Installation Ubuntu
+
+The installation is done under the current user with all rights granted. sudo premission is required to be able to install the java dependencies
 
 ####Dependencies:
 
