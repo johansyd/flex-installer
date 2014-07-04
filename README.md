@@ -17,7 +17,7 @@ Ubuntu 12.04 precise
 
 ####Install Flex SDK
 
-    sudo apt-get install java-package openjdk-7-jdk ant
+    sudo apt-get install openjdk-7-jdk||openjdk-6-jdk||openjdk-5-jdk ant
     git clone git@github.com:johansyd/flex-installer.git
     mkdir ~/flex
     cp flex-installer/install_flex.sh ~/flex/install.sh
