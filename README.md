@@ -1,7 +1,7 @@
 flex-installer
 ==============
 
-flex-installer Installing flex from the command line for compiling actionscript and flex
+flex-installer Installing flex SDK 4.12.1 from the command line for compiling actionscript and flex.
 
 ###Installation Ubuntu
 
@@ -17,6 +17,7 @@ Ubuntu 12.04 precise
 
 ####Install Flex SDK
 
+        sudo apt-get install java-package openjdk-7-jdk ant
 	git clone git@github.com:johansyd/flex-installer.git
 	mkdir ~/flex
 	cp flex-installer/install_flex.sh ~/flex/install.sh
