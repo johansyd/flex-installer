@@ -9,7 +9,7 @@ The installation is done under the current user with all rights granted. sudo pr
 
 ####Dependencies:
 
-java-package, openjdk-7-jdk and ant
+jdk>=1.5 and ant>=1.7
 
 ####Tested on:
 
