@@ -2,13 +2,6 @@
 ## Documentation source: https://cwiki.apache.org/confluence/display/FLEX/Installation+help#Installationhelp-Ant-basedinstaller
 ## Latest binaries: http://flex.apache.org/download-binaries.html
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
-read -p "Flex compiler requires java. java-package, openjdk-7-jdk and ant will be installed. Is this OK with you? [Y|y|N|n]:" -n 1 -r
-echo    # (optional) move to a new line
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-then
-    exit 1
-fi
-(sudo apt-get install java-package openjdk-7-jdk ant -y && echo 'Java SDK installed.') || (echo 'Something went wrong. Java SDK not installed.' && exit 1)
 read -p "Everything starting with apache-flex-sdk-4.12.1-bin will be removed from $dir. Is this OK with you? [Y|y|N|n]:" -n 1 -r
 echo    # (optional) move to a new line
 if [[ ! $REPLY =~ ^[Yy]$ ]]
