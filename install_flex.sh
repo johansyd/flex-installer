@@ -242,16 +242,25 @@ mkdir -p $dir/frameworks/libs/player/11.1/ && say 'directory created.'
 if [[ $(prompt_yes_no \
     "We need to add $dir/bin to your system PATH so that you can access the mxmlc flex compiler globaly. Is this OK with you?") == 'no' ]]
 then
-    say "Understandable that you don't want to. You may still use the compiler by using an absolute path to the compiler: $dir/bin/mxmlc"
+    say "Understandable that you don't want to. You may still use the compiler by using an absolute path to the compiler: $(dirname $dir)/mxmlc"
     say "If you change your mind later, do the following from the command line: echo 'export PATH=\$PATH:'\"$dir/bin\" >> ~/.bashrc;echo 'export PATH=\$PATH:'\"$dir/jdk1.7.0_60/bin\" >> ~/.bashrc;echo 'export PATH=\$PATH:'\"$dir/apache-ant-1.9.4/bin\" >> ~/.bashrc;echo \"export ANT_HOME=$dir/apache-ant-1.9.4\" >> ~/.bashrc;echo \"export JAVA_HOME=$dir/jdk1.7.0_60\" >> ~/.bashrc"
+    parent=$(dirname $dir)
+    echo '#/bin/bash!' > $parent/mxmlc
+    echo 'export JAVA_HOME='"$dir/jdk1.7.0_60" >> $parent/mxmlc
+    echo 'export ANT_HOME='"$dir/apache-ant-1.9.4" >> $parent/mxmlc
+    echo "export PATH=$dir/jdk1.7.0_60/bin"':$PATH' >> $parent/mxmlc
+    echo "export PATH=$dir/apache-ant-1.9.4/bin"':$PATH' >> $parent/mxmlc
+    echo "export PATH=$dir/bin"':$PATH' >> $parent/mxmlc
+    echo "mxmlc "'"$@"' >> $parent/mxmlc
+    chmod 711 $parent/mxmlc 
     exit 1
 fi
 
-echo 'export JAVA_HOME='"$dir/jdk1.7.0_60" >> ~/.bashrc
-echo 'export ANT_HOME='"$dir/apache-ant-1.9.4" >> ~/.bashrc
-echo 'export PATH=$PATH:'"$dir/jdk1.7.0_60/bin" >> ~/.bashrc
-echo 'export PATH=$PATH:'"$dir/apache-ant-1.9.4/bin" >> ~/.bashrc
-echo 'export PATH=$PATH:'"$dir/bin" >> ~/.bashrc
+echo "export JAVA_HOME=$dir/jdk1.7.0_60" >> ~/.bashrc
+echo "export ANT_HOME=$dir/apache-ant-1.9.4" >> ~/.bashrc
+echo "export PATH=$dir/jdk1.7.0_60/bin"':$PATH' >> ~/.bashrc
+echo "export PATH=$dir/apache-ant-1.9.4/bin"':$PATH' >> ~/.bashrc
+echo "export PATH=$dir/bin"':$PATH' >> ~/.bashrc
 
 say "
 flex compiler installed!
