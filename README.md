@@ -21,8 +21,7 @@ Ubuntu 12.04 precise, 10.04 lucid
     mkdir ~/flex
     cp flex-installer/install_flex.sh ~/flex/install.sh
     cd ~/flex
-    chmod 711 ./install_flex.sh
-    ./install_flex.sh
+    bash ./install_flex.sh
     
 , or if you trust me you can do this (does not require git):
 
@@ -30,8 +29,7 @@ Ubuntu 12.04 precise, 10.04 lucid
     cp flex-installer/install_flex.sh ~/flex/install.sh
     cd ~/flex
     wget https://raw.githubusercontent.com/johansyd/flex-installer/master/install_flex.sh
-    chmod 711 ./install_flex.sh
-    ./install_flex.sh
+    bash ./install_flex.sh
     
 NB: After you are finished with the install dialogs, get yourself a cup of coffe.
 
