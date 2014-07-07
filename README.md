@@ -17,14 +17,6 @@ Ubuntu 12.04 precise, 10.04 lucid
 
 ####Install Flex SDK
 
-    git clone <this repository>
-    mkdir ~/flex
-    cp flex-installer/install_flex.sh ~/flex/install.sh
-    cd ~/flex
-    bash ./install_flex.sh
-    
-, or if you trust me you can do this (does not require git):
-
     mkdir ~/flex
     cd ~/flex
     wget https://raw.githubusercontent.com/johansyd/flex-installer/master/install_flex.sh
