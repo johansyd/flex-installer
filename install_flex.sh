@@ -240,29 +240,14 @@ mkdir -p $dir/frameworks/libs/player/11.1/ && say 'directory created.'
 (wget http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc -O $dir/frameworks/libs/player/11.1/playerglobal.swc && say 'flash player 11.1 downloaded.') || (fail 'Something went wrong. flash player 11.1 not downloaded.')
 
 if [[ $(prompt_yes_no \
-    "We need to add $dir/bin to your system PATH so that you can access the mxmlc flex compiler globaly. Is this OK with you?") == 'no' ]]
+    "We need to add $dir/bin to your system PATH so that you can access the mxmlc flex compiler globaly. Is this OK with you?") == 'yes' ]]
 then
-    say "Understandable that you don't want to. You may still use the compiler by using an absolute path to the compiler: $(dirname $dir)/mxmlc"
-    say "If you change your mind later, do the following from the command line: echo 'export PATH=\$PATH:'\"$dir/bin\" >> ~/.bashrc;echo 'export PATH=\$PATH:'\"$dir/jdk1.7.0_60/bin\" >> ~/.bashrc;echo 'export PATH=\$PATH:'\"$dir/apache-ant-1.9.4/bin\" >> ~/.bashrc;echo \"export ANT_HOME=$dir/apache-ant-1.9.4\" >> ~/.bashrc;echo \"export JAVA_HOME=$dir/jdk1.7.0_60\" >> ~/.bashrc"
-    parent=$(dirname $dir)
-    echo '#/bin/bash!' > $parent/mxmlc
-    echo 'export JAVA_HOME='"$dir/jdk1.7.0_60" >> $parent/mxmlc
-    echo 'export ANT_HOME='"$dir/apache-ant-1.9.4" >> $parent/mxmlc
-    echo "export PATH=$dir/jdk1.7.0_60/bin"':$PATH' >> $parent/mxmlc
-    echo "export PATH=$dir/apache-ant-1.9.4/bin"':$PATH' >> $parent/mxmlc
-    echo "export PATH=$dir/bin"':$PATH' >> $parent/mxmlc
-    echo "mxmlc "'"$@"' >> $parent/mxmlc
-    chmod 711 $parent/mxmlc 
-    exit 1
-fi
-
-echo "export JAVA_HOME=$dir/jdk1.7.0_60" >> ~/.bashrc
-echo "export ANT_HOME=$dir/apache-ant-1.9.4" >> ~/.bashrc
-echo "export PATH=$dir/jdk1.7.0_60/bin"':$PATH' >> ~/.bashrc
-echo "export PATH=$dir/apache-ant-1.9.4/bin"':$PATH' >> ~/.bashrc
-echo "export PATH=$dir/bin"':$PATH' >> ~/.bashrc
-
-say "
+    echo "export JAVA_HOME=$dir/jdk1.7.0_60" >> ~/.bashrc
+    echo "export ANT_HOME=$dir/apache-ant-1.9.4" >> ~/.bashrc
+    echo "export PATH=$dir/jdk1.7.0_60/bin"':$PATH' >> ~/.bashrc
+    echo "export PATH=$dir/apache-ant-1.9.4/bin"':$PATH' >> ~/.bashrc
+    echo "export PATH=$dir/bin"':$PATH' >> ~/.bashrc
+    say "
 flex compiler installed!
 
 To use the flex compiler you need to log out and in of your current terminal or do a 
@@ -276,5 +261,20 @@ mxmlc --help
 to see how to use this compiler or go to http://github.com/aptoma/flex-installer 
 
 to read some usage scenarios.
-" && exit 0 || fail 'Something went wrong. flex compiler not installed.'
+" && exit 0
+else
+    say "Understandable that you don't want to. You may still use the compiler by using an absolute path to the compiler: $(dirname $dir)/mxmlc"
+    say "If you change your mind later, do the following from the command line: echo 'export PATH=\$PATH:'\"$dir/bin\" >> ~/.bashrc;echo 'export PATH=\$PATH:'\"$dir/jdk1.7.0_60/bin\" >> ~/.bashrc;echo 'export PATH=\$PATH:'\"$dir/apache-ant-1.9.4/bin\" >> ~/.bashrc;echo \"export ANT_HOME=$dir/apache-ant-1.9.4\" >> ~/.bashrc;echo \"export JAVA_HOME=$dir/jdk1.7.0_60\" >> ~/.bashrc"
+    parent=$(dirname $dir)
+    echo '#/bin/bash!' > $parent/mxmlc
+    echo 'export JAVA_HOME='"$dir/jdk1.7.0_60" >> $parent/mxmlc
+    echo 'export ANT_HOME='"$dir/apache-ant-1.9.4" >> $parent/mxmlc
+    echo "export PATH=$dir/jdk1.7.0_60/bin"':$PATH' >> $parent/mxmlc
+    echo "export PATH=$dir/apache-ant-1.9.4/bin"':$PATH' >> $parent/mxmlc
+    echo "export PATH=$dir/bin"':$PATH' >> $parent/mxmlc
+    echo "mxmlc "'"$@"' >> $parent/mxmlc
+    chmod 711 $parent/mxmlc 
 
+fi
+
+exit 0;
