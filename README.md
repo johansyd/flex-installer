@@ -13,7 +13,7 @@ jdk>=1.5 and ant>=1.7
 
 ####Tested on:
 
-Ubuntu 12.04 precise
+Ubuntu 12.04 precise, 10.04 lucid
 
 ####Install Flex SDK
 
@@ -21,6 +21,7 @@ Ubuntu 12.04 precise
     mkdir ~/flex
     cp flex-installer/install_flex.sh ~/flex/install.sh
     cd ~/flex
+    chmod 711 ./install.sh
     ./install.sh
 
 NB: After you are finished with the install dialogs, get yourself a cup of coffe.
