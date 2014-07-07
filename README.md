@@ -26,7 +26,6 @@ Ubuntu 12.04 precise, 10.04 lucid
 , or if you trust me you can do this (does not require git):
 
     mkdir ~/flex
-    cp flex-installer/install_flex.sh ~/flex/install.sh
     cd ~/flex
     wget https://raw.githubusercontent.com/johansyd/flex-installer/master/install_flex.sh
     bash ./install_flex.sh
