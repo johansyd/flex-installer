@@ -23,6 +23,10 @@ Ubuntu 12.04 precise, 10.04 lucid
     cd ~/flex
     chmod 711 ./install.sh
     ./install.sh
+    
+, or if you trust me you can do this (does not require git):
+
+    bash <(\curl -s https://raw.githubusercontent.com/aptoma/flex-installer/master/install_flex.sh)
 
 NB: After you are finished with the install dialogs, get yourself a cup of coffe.
 
