@@ -142,8 +142,8 @@ function found () {
     hash $1 2>&-;
 }
 
-function java_is_installed () {
-    if found java; then
+function javac_is_installed () {
+    if found javac; then
         local ver=$(java -version 2>&1 | head -n 1 | sed -E 's/.*"([0-9]+\.[0-9]+\.[0-9]+).*".*$/\1/');
         local -r minver='1.5.0';
         vercomp "$ver" $minver;
@@ -189,13 +189,13 @@ cd $dir/apache-flex-sdk-4.12.1-bin/ && say 'changed directory.'
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 
-if ! java_is_installed
+if ! javac_is_installed
 then
 
     if [[ $(prompt_yes_no \
         "Java JDK is not installed and is required. If you want to install openjdk system wide answer 'yes' (requires sudo) if not java will be installed for your user only. Do you want to install java JDK system wide?") == 'yes' ]]
     then
-        sudo apt-get install openjdk-7-jdk||openjdk-6-jdk||openjdk-5-jdk
+        sudo apt-get install openjdk-7-jdk||sudo apt-get install openjdk-6-jdk||sudo apt-get install openjdk-5-jdk
     else
         java_url='http://download.oracle.com/otn-pub/java/jdk/7u60-b19/jdk-7u60-linux-x64.tar.gz';
         wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" $java_url 1> jre-7u60-linux-x64.tar.gz
@@ -205,9 +205,9 @@ then
     fi
 fi
 
-if ! java_is_installed
+if ! javac_is_installed
 then
-    fail 'Could not install java version>=1.5'
+    fail 'Could not install java JDK version>=1.5'
 fi
 
 if ! ant_is_installed
