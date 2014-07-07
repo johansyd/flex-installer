@@ -5,7 +5,7 @@ flex-installer Installing flex SDK 4.12.1 from the command line for compiling ac
 
 ###Installation Ubuntu
 
-The installation is done under the current user with all rights granted. sudo premission is required to be able to install the java dependencies
+The installation is done under the current user with all rights granted. sudo premission is required to be able to install the java dependencies system wide, but an option for local installation without sudo is also available.
 
 ####Dependencies:
 
