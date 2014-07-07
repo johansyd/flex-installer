@@ -21,6 +21,7 @@ Ubuntu 12.04 precise
     mkdir ~/flex
     cp flex-installer/install_flex.sh ~/flex/install.sh
     cd ~/flex
+    chmod 711 ./install.sh
     ./install.sh
 
 NB: After you are finished with the install dialogs, get yourself a cup of coffe.
