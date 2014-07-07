@@ -13,7 +13,7 @@ jdk>=1.5 and ant>=1.7
 
 ####Tested on:
 
-Ubuntu 12.04 precise
+Ubuntu 12.04 precise, 10.04 lucid
 
 ####Install Flex SDK
 
