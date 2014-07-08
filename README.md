@@ -28,7 +28,7 @@ The installation is done under the current user with all rights granted. You hav
 
 ###Installation Mac OS x
 
-Flex has a (Air installer)[http://flex.apache.org/installer.html] for Mac OS X whic is the easiest way.
+Flex has a [Air installer](http://flex.apache.org/installer.html) for Mac OS X whic is the easiest way.
 If you want to use this installer because you need to install from the command line then this installer should work as long as you do not install the dependencies system wide or install them before you start the installer. If you want to do this you should install ant first. Java JDK usually comes preinstalled, but check just in case.
 
     # install x code https://developer.apple.com/xcode/
@@ -56,7 +56,7 @@ If you want to use this installer because you need to install from the command l
 
 ###Installation Windows
 
-Flex has a (Air installer)[http://flex.apache.org/installer.html] for Windows which is the easiest way. 
+Flex has a [Air installer](http://flex.apache.org/installer.html) for Windows which is the easiest way. 
 If you want to install from terminal you need to install (Cygwin)[http://cygwin.com/install.html Cygwin] first.
 Open a cygwin terminal window after you installed cywin and do this:
 
@@ -67,10 +67,10 @@ Open a cygwin terminal window after you installed cywin and do this:
 
 ##Using the mxml flex compiler.
 
--(Tutorial)[http://help.adobe.com/en_US/flex/using/WS2db454920e96a9e51e63e3d11c0bf69084-7fcc.html]
--(Command line syntax)[http://help.adobe.com/en_US/flex/using/WS2db454920e96a9e51e63e3d11c0bf69084-7ab6.html]
--(Using abbreviated option names)[http://help.adobe.com/en_US/flex/using/WS2db454920e96a9e51e63e3d11c0bf67670-7ff6.html]
--(About the application compiler options)[http://help.adobe.com/en_US/flex/using/WS2db454920e96a9e51e63e3d11c0bf69084-7a92.html]
+-[Tutorial](http://help.adobe.com/en_US/flex/using/WS2db454920e96a9e51e63e3d11c0bf69084-7fcc.html)
+-[Command line syntax](http://help.adobe.com/en_US/flex/using/WS2db454920e96a9e51e63e3d11c0bf69084-7ab6.html)
+-[Using abbreviated option names](http://help.adobe.com/en_US/flex/using/WS2db454920e96a9e51e63e3d11c0bf67670-7ff6.html)
+-[About the application compiler options](http://help.adobe.com/en_US/flex/using/WS2db454920e96a9e51e63e3d11c0bf69084-7a92.html)
 
 ##Installing Flex to use it with eclipse.
 
