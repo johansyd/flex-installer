@@ -57,7 +57,7 @@ If you want to use this installer because you need to install from the command l
 ###Installation Windows
 
 Flex has a [Air installer](http://flex.apache.org/installer.html) for Windows which is the easiest way. 
-If you want to install from terminal you need to install (Cygwin)[http://cygwin.com/install.html Cygwin] first.
+If you want to install from terminal you need to install [Cygwin](http://cygwin.com/install.html "Cygwin") first.
 Open a cygwin terminal window after you installed cywin and do this:
 
     mkdir ~/flex
