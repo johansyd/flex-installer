@@ -27,7 +27,7 @@ The installation is done under the current user with all rights granted. You hav
 
 ###Installation Mac OS x
 
-Flex has a [Air installer](http://flex.apache.org/installer.html) for Mac OS X whic is the easiest way.
+Flex has a [Air installer](http://flex.apache.org/installer.html) for Mac OS X which is the easiest way.
 
 ###Installation Windows
 
