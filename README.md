@@ -3,11 +3,30 @@ Flex installer
 
 flex-installer Installing flex SDK 4.12.1 from the command line for compiling actionscript and flex.
 
-##Installation Ubuntu
+###Dependencies:
 
-The installation is done under the current user with all rights granted. sudo premission is required to be able to install the java dependencies
+jdk>=1.5 and ant>=1.7
 
-##Installation Mac OS x
+###Tested on:
+
+Ubuntu 12.04 precise
+Ubuntu 10.04 lucid
+Cygwin64 (Windows)
+
+##Install Flex SDK
+    
+NB: After you are finished with the install dialogs, get yourself a cup of coffe.
+
+###Installation Ubuntu
+
+The installation is done under the current user with all rights granted. You have option for installing the dependencies system wide or in a local folder.
+
+    mkdir ~/flex
+    cd ~/flex
+    wget --no-check-certificate https://raw.githubusercontent.com/johansyd/flex-installer/master/install_flex.sh
+    bash ./install_flex.sh
+
+###Installation Mac OS x
 
 Flex has a (Air installer)[http://flex.apache.org/installer.html] for Mac OS X whic is the easiest way.
 If you want to use this installer because you need to install from the command line then this installer should work as long as you do not install the dependencies system wide or install them before you start the installer. If you want to do this you should install ant first. Java JDK usually comes preinstalled, but check just in case.
@@ -35,7 +54,7 @@ If you want to use this installer because you need to install from the command l
     wget --no-check-certificate https://raw.githubusercontent.com/johansyd/flex-installer/master/install_flex.sh
     bash ./install_flex.sh
 
-##Installation Windows
+###Installation Windows
 
 Flex has a (Air installer)[http://flex.apache.org/installer.html] for Windows which is the easiest way. 
 If you want to install from terminal you need to install (Cygwin)[http://cygwin.com/install.html Cygwin] first.
@@ -46,35 +65,16 @@ Open a cygwin terminal window after you installed cywin and do this:
     wget --no-check-certificate https://raw.githubusercontent.com/johansyd/flex-installer/master/install_flex.sh
     bash ./install_flex.sh
 
-###Dependencies:
+##Using the mxml flex compiler.
 
-jdk>=1.5 and ant>=1.7
-
-###Tested on:
-
-Ubuntu 12.04 precise
-Ubuntu 10.04 lucid
-Cygwin64 (Windows)
-
-###Install Flex SDK
-
-    mkdir ~/flex
-    cd ~/flex
-    wget --no-check-certificate https://raw.githubusercontent.com/johansyd/flex-installer/master/install_flex.sh
-    bash ./install_flex.sh
-    
-NB: After you are finished with the install dialogs, get yourself a cup of coffe.
-
-###Using the mxml flex compiler.
-
-###Installing Flex to use it with eclipse.
+##Installing Flex to use it with eclipse.
 
 https://code.google.com/p/fb4linux/
 
-###Installing the flash debug player
+##Installing the flash debug player
 
 https://www.adobe.com/support/flashplayer/downloads.html
 
-###Using FlashFirebug in firefox
+##Using FlashFirebug in firefox
 
 Install from: http://o-minds.com/products/flashfirebug
