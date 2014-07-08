@@ -67,6 +67,11 @@ Open a cygwin terminal window after you installed cywin and do this:
 
 ##Using the mxml flex compiler.
 
+-(Tutorial)[http://help.adobe.com/en_US/flex/using/WS2db454920e96a9e51e63e3d11c0bf69084-7fcc.html]
+-(Command line syntax)[http://help.adobe.com/en_US/flex/using/WS2db454920e96a9e51e63e3d11c0bf69084-7ab6.html]
+-(Using abbreviated option names)[http://help.adobe.com/en_US/flex/using/WS2db454920e96a9e51e63e3d11c0bf67670-7ff6.html]
+-(About the application compiler options)[http://help.adobe.com/en_US/flex/using/WS2db454920e96a9e51e63e3d11c0bf69084-7a92.html]
+
 ##Installing Flex to use it with eclipse.
 
 https://code.google.com/p/fb4linux/
