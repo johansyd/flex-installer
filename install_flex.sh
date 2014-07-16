@@ -256,14 +256,19 @@ source ~/.bashrc
 
 with your current user to use the compiler at once.
 
-mxmlc --help 
+mxmlc -help 
 
 to see how to use this compiler or go to http://github.com/aptoma/flex-installer 
 
 to read some usage scenarios.
+
+You also installed the component compiler for compiling swc libraries like OSMF.
+
+compc -help
+
 " && exit 0
 else
-    say "Understandable that you don't want to. You may still use the compiler by using an absolute path to the compiler: $(dirname $dir)/mxmlc"
+    say "Understandable that you don't want to. You may still use the compiler by using an absolute path to the compiler: $(dirname $dir)/mxmlc or $(dirname $dir)/compc if you want to use the component compiler to generate swc"
     say "If you change your mind later, do the following from the command line: echo 'export PATH=\$PATH:'\"$dir/bin\" >> ~/.bashrc;echo 'export PATH=\$PATH:'\"$dir/jdk1.7.0_60/bin\" >> ~/.bashrc;echo 'export PATH=\$PATH:'\"$dir/apache-ant-1.9.4/bin\" >> ~/.bashrc;echo \"export ANT_HOME=$dir/apache-ant-1.9.4\" >> ~/.bashrc;echo \"export JAVA_HOME=$dir/jdk1.7.0_60\" >> ~/.bashrc"
     # Creating mxml local shell script
     parent=$(dirname $dir)
