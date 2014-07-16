@@ -1,7 +1,7 @@
 Flex installer
 ==============
 
-flex-installer Installing flex SDK 4.12.1 from the command line for compiling actionscript and flex.
+flex installer: Installing flex SDK 4.12.1 from the command line for compiling actionscript and flex on linux.
 
 ###Dependencies:
 
