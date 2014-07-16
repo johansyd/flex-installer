@@ -265,6 +265,7 @@ to read some usage scenarios.
 else
     say "Understandable that you don't want to. You may still use the compiler by using an absolute path to the compiler: $(dirname $dir)/mxmlc"
     say "If you change your mind later, do the following from the command line: echo 'export PATH=\$PATH:'\"$dir/bin\" >> ~/.bashrc;echo 'export PATH=\$PATH:'\"$dir/jdk1.7.0_60/bin\" >> ~/.bashrc;echo 'export PATH=\$PATH:'\"$dir/apache-ant-1.9.4/bin\" >> ~/.bashrc;echo \"export ANT_HOME=$dir/apache-ant-1.9.4\" >> ~/.bashrc;echo \"export JAVA_HOME=$dir/jdk1.7.0_60\" >> ~/.bashrc"
+    # Creating mxml local shell script
     parent=$(dirname $dir)
     echo '#/bin/bash!' > $parent/mxmlc
     echo 'export JAVA_HOME='"$dir/jdk1.7.0_60" >> $parent/mxmlc
@@ -274,7 +275,15 @@ else
     echo "export PATH=$dir/bin"':$PATH' >> $parent/mxmlc
     echo "mxmlc "'"$@"' >> $parent/mxmlc
     chmod 711 $parent/mxmlc 
-
+    # Creating compc local shell script
+    echo '#/bin/bash!' > $parent/compc
+    echo 'export JAVA_HOME='"$dir/jdk1.7.0_60" >> $parent/compc
+    echo 'export ANT_HOME='"$dir/apache-ant-1.9.4" >> $parent/compc
+    echo "export PATH=$dir/jdk1.7.0_60/bin"':$PATH' >> $parent/compc
+    echo "export PATH=$dir/apache-ant-1.9.4/bin"':$PATH' >> $parent/compc
+    echo "export PATH=$dir/bin"':$PATH' >> $parent/compc
+    echo "compc "'"$@"' >> $parent/compc
+    chmod 711 $parent/compc
 fi
 
 exit 0;
