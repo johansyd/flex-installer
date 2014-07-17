@@ -59,3 +59,11 @@ https://www.adobe.com/support/flashplayer/downloads.html
 ###Using FlashFirebug in firefox
 
 Install from: http://o-minds.com/products/flashfirebug
+
+###Using Monster debugger
+
+Go to: http://www.demonsterdebugger.com/
+
+###Using Firebug in firefox
+
+clone from: https://github.com/johansyd/console
