@@ -22,9 +22,8 @@ NB: After you are finished with the install dialogs, get yourself a cup of coffe
 
 The installation is done under the current user with all rights granted. You have option for installing the dependencies system wide or in a local folder.
 
-    mkdir ~/flex
+    git clone <this repository> flex
     cd ~/flex
-    wget --no-check-certificate https://raw.githubusercontent.com/johansyd/flex-installer/master/install.sh
     bash ./install.sh
 
 ###Installation Mac OS x
