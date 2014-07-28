@@ -209,7 +209,7 @@ function install_ant () {
 
         [ -f apache-ant-1.9.4-bin.tar.gz ] || wget $ant_url -O apache-ant-1.9.4-bin.tar.gz
         mkdir -p ant-bin;
-        [ "$(ls -A ant-bin)" ] || tar -zxvf apache-ant-1.9.4-bin.tar.gz -C ant-bin --strip-components=1
+        [ "$(ls -A ant-bin)" ] || tar -zxf apache-ant-1.9.4-bin.tar.gz -C ant-bin --strip-components=1
         export ANT_OPTS="-Xmx256M"
         export ANT_HOME=$dir/ant-bin
         export PATH=$PATH:$dir/ant-bin/bin
@@ -227,10 +227,10 @@ function install_java () {
     then
         sudo apt-get install openjdk-7-jdk||sudo apt-get install openjdk-6-jdk||sudo apt-get install openjdk-5-jdk
     else
-        java_url='http://download.oracle.com/otn-pub/java/jdk/7u65-b17/jdk-7u65-linux-x64.tar.gz';
+        java_url='http://download.oracle.com/otn-pub/java/jdk/7/jdk-7-linux-x64.tar.gz';
         [ -f jdk-7-linux-x64.tar.gz ] || wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-se    curebackup-cookie" $java_url -O jdk-7-linux-x64.tar.gz
         mkdir -p jdk7
-        [ "$(ls -A jdk7)" ] || tar -zxvf jdk-7-linux-x64.tar.gz -C jdk7 --strip-components=1
+        [ "$(ls -A jdk7)" ] || tar -zxf jdk-7-linux-x64.tar.gz -C jdk7 --strip-components=1
         export JAVA_HOME=$dir/jdk7
         export PATH=$PATH:$dir/jdk7/bin
     fi
@@ -238,22 +238,28 @@ function install_java () {
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 
-if [[ $(prompt_yes_no \
+if [[ -d apache-flex-sdk-4.12.1-bin && $(prompt_yes_no \
     "
     Everything starting with apache-flex-sdk-4.12.1-bin 
     will be removed from $dir. 
     Is this OK with you?
-    ") != 'yes' ]]
+    ") == 'yes' ]]
 then
-	say 'Aborted installing Flex SDK. Please change current path to an empty directory'
-    exit 1;
+    rm -rfv $dir/apache-flex-sdk-4.12.1-bin*
+else
+    warn 'Please rerun this script and choose remove if you get into problems.'
 fi
 
-rm -rfv $dir/apache-flex-sdk-4.12.1-bin*
+if ! [[ -f apache-flex-sdk-4.12.1-bin.tar.gz ]]; then
+    (wget http://apache.uib.no/flex/4.12.1/binaries/apache-flex-sdk-4.12.1-bin.tar.gz -O apache-flex-sdk-4.12.1-bin.tar.gz && say 'flex source downloaded.') || (rm -rf $dir/apache-flex-sdk-4.12.1-bin* && fail 'Something went wrong. flex source not downloaded.')
+fi
 
-(wget http://apache.uib.no/flex/4.12.1/binaries/apache-flex-sdk-4.12.1-bin.tar.gz && say 'flex source downloaded.') || (rm -rf $dir/apache-flex-sdk-4.12.1-bin* && fail 'Something went wrong. flex source not downloaded.')
+mkdir -p apache-flex-sdk-4.12.1-bin
 
-(tar zxvf apache-flex-sdk-4.12.1-bin.tar.gz && say 'flex source uncompressed.') || (rm -rf $dir/apache-flex-sdk-4.12.1-bin* && fail 'Something went wrong. flex source not uncompressed.')
+if [ -z "$(ls -A apache-flex-sdk-4.12.1-bin)" ]; then
+    (tar zxf apache-flex-sdk-4.12.1-bin.tar.gz -C apache-flex-sdk-4.12.1-bin && say 'flex source uncompressed.') || (rm -rf $dir/apache-flex-sdk-4.12.1-bin* && fail 'Something went wrong. flex source not uncompressed.') 
+fi
+
 
 cd $dir/apache-flex-sdk-4.12.1-bin/ && say 'changed directory.'
 
