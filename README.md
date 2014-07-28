@@ -24,8 +24,8 @@ The installation is done under the current user with all rights granted. You hav
 
     mkdir ~/flex
     cd ~/flex
-    wget --no-check-certificate https://raw.githubusercontent.com/johansyd/flex-installer/master/install_flex.sh
-    bash ./install_flex.sh
+    wget --no-check-certificate https://raw.githubusercontent.com/johansyd/flex-installer/master/install.sh
+    bash ./install.sh
 
 ###Installation Mac OS x
 
