@@ -12,14 +12,16 @@ set -o pipefail
 declare -r txtund=$(tput sgr 0 1)          # Underline
 declare -r txtbld=$(tput bold)             # Bold
 declare -r bldred=${txtbld}$(tput setaf 1) #  red
+declare -r bldyellow=${txtbld}$(tput setaf 3) #  red
 declare -r bldblu=${txtbld}$(tput setaf 4) #  blue
+declare -r bldgreen=${txtbld}$(tput setaf 2) #  blue
 declare -r bldwht=${txtbld}$(tput setaf 7) #  white
 declare -r txtrst=$(tput sgr0)             # Reset
-
+declare -r isNumber='^[0-9]+$';
 
 function prompt_yes_no () {
     local choice;
-    builtin read -p "${bldblu}$1 (y/n): ${txtrst}" -r choice;
+    builtin read -p "${bldblu}$1(y/n): ${txtrst}" -r choice;
     case $choice in
         y|Y) echo "yes";;
         n|N) echo "no";;
@@ -35,6 +37,12 @@ function say () {
 function fail () {
     printf "${bldred}ERROR: %b${txtrst}\n" "$*";
     exit 1;
+}
+function warn () {
+    printf "${bldyellow}WARN: %b${txtrst}\n" "$*";
+}
+function example () {
+    printf "${bldgreen}%b${txtrst}\n" "$*";
 }
 
 function prompt_string () {
@@ -126,6 +134,11 @@ vercomp () {
             # fill empty fields in ver2 with zeros
             ver2[i]=0
         fi
+
+        if ! [[ ${ver1[i]} =~ $isNumber ]] ; then
+               return 3;
+        fi
+
         if ((10#${ver1[i]} > 10#${ver2[i]}))
         then
             return 1
@@ -148,7 +161,6 @@ function javac_is_installed () {
         local -r minver='1.5.0';
         vercomp "$ver" $minver;
         if [ $? == "2" ]; then
-	    say 'hello java'
             return 0;
         fi
     else
@@ -160,20 +172,78 @@ function ant_is_installed () {
     if found ant; then
         local ver=$(ant -version 2>&1 | head -n 1 | sed -E 's/.*([0-9]+\.[0-9]+\.[0-9]+).*$/\1/');
         local -r minver='1.7.0';
-        vercomp "$ver" $minver;
+        local -r vercomp_status="$(vercomp "$ver" $minver)";
+        say "Checking your Ant version number."
         if [ $? == "2" ]; then
             return 0;
         fi
-        
+        if [ $? == "3" ]; then
+            return 1;
+        fi 
     else
+        say "Ant is not installed";
         return 1;
+    fi
+}
+
+function valid_java_install () {
+    local -r home="${JAVA_HOME:-}";   
+
+    [ -z $home ] || return 1;
+    [ -f $home/lib/tools.jar ] || return 1;
+    return 0;
+}
+
+function install_ant () {
+    if [[ $(prompt_yes_no \
+        "
+    Apache Ant is not installed and is required. 
+    If you want to install Apache Ant system wide answer 'yes' (requires sudo) 
+    if not Apache Ant will be installed locally in this folder with your current 
+    user as owner. Do you want to install Apache Ant system wide?
+    ") == 'yes' ]]
+    then
+        sudo apt-get install ant
+    else
+        ant_url='http://apache.rediris.es/ant/binaries/apache-ant-1.9.4-bin.tar.gz'
+
+        [ -f apache-ant-1.9.4-bin.tar.gz ] || wget $ant_url -O apache-ant-1.9.4-bin.tar.gz
+        mkdir -p ant-bin;
+        [ "$(ls -A ant-bin)" ] || tar -zxvf apache-ant-1.9.4-bin.tar.gz -C ant-bin --strip-components=1
+        export ANT_OPTS="-Xmx256M"
+        export ANT_HOME=$dir/ant-bin
+        export PATH=$PATH:$dir/ant-bin/bin
+    fi
+}
+
+function install_java () {
+    if [[ $(prompt_yes_no \
+        "
+    Java JDK is not installed and is required. 
+    If you want to install openjdk-jre system wide answer 'yes' (requires sudo) 
+    if not java will be installed for locally in this folder with your current 
+    user as owner. Do you want to install java JDK system wide?
+    ") == 'yes' ]]
+    then
+        sudo apt-get install openjdk-7-jdk||sudo apt-get install openjdk-6-jdk||sudo apt-get install openjdk-5-jdk
+    else
+        java_url='http://download.oracle.com/otn-pub/java/jdk/7u65-b17/jdk-7u65-linux-x64.tar.gz';
+        [ -f jdk-7-linux-x64.tar.gz ] || wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-se    curebackup-cookie" $java_url -O jdk-7-linux-x64.tar.gz
+        mkdir -p jdk7
+        [ "$(ls -A jdk7)" ] || tar -zxvf jdk-7-linux-x64.tar.gz -C jdk7 --strip-components=1
+        export JAVA_HOME=$dir/jdk7
+        export PATH=$PATH:$dir/jdk7/bin
     fi
 }
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 
 if [[ $(prompt_yes_no \
-    "Everything starting with apache-flex-sdk-4.12.1-bin will be removed from $dir. Is this OK with you?") != 'yes' ]]
+    "
+    Everything starting with apache-flex-sdk-4.12.1-bin 
+    will be removed from $dir. 
+    Is this OK with you?
+    ") != 'yes' ]]
 then
 	say 'Aborted installing Flex SDK. Please change current path to an empty directory'
     exit 1;
@@ -191,18 +261,7 @@ dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 
 if ! javac_is_installed
 then
-
-    if [[ $(prompt_yes_no \
-        "Java JDK is not installed and is required. If you want to install openjdk system wide answer 'yes' (requires sudo) if not java will be installed for your user only. Do you want to install java JDK system wide?") == 'yes' ]]
-    then
-        sudo apt-get install openjdk-7-jdk||sudo apt-get install openjdk-6-jdk||sudo apt-get install openjdk-5-jdk
-    else
-        java_url='http://download.oracle.com/otn-pub/java/jdk/7u60-b19/jdk-7u60-linux-x64.tar.gz';
-        wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" $java_url 1> jre-7u60-linux-x64.tar.gz
-        tar -zxvf jdk-7u60-linux-x64.tar.gz
-        export JAVA_HOME=$dir/jdk1.7.0_60
-        export PATH=$PATH:$dir/jdk1.7.0_60/bin
-    fi
+    install_java
 fi
 
 if ! javac_is_installed
@@ -210,21 +269,31 @@ then
     fail 'Could not install java JDK version>=1.5'
 fi
 
+if ! valid_java_install
+then
+    warn "Your java installation has problems. 
+Probalby because your JAVA_HOME is wrong or if you installed jre instead of jdk.
+Please install our local java and ant version,
+or abort this script and correct your JAVA_HOME environment variable 
+before running this script again. 
+Remember to check that you can run:" 
+example "ant -version";
+    warn "Rerunning the java installation. Please choose local installation,
+or abort, correct your JAVA_HOME environment variable and run this script again.
+"
+    rm -rf ant-bin
+    rm -rf jdk7
+    install_java
+    install_ant
+fi
+
+
 if ! ant_is_installed
 then
-    if [[ $(prompt_yes_no \
-        "Apache Ant is not installed and is required. If you want to install Apache Ant system wide answer 'yes' (requires sudo) if not Apache Ant will be installed for your user only. Do you want to install Apache Ant system wide?") == 'yes' ]]
-    then
-        sudo apt-get install ant
-    else
-        ant_url='http://apache.rediris.es/ant/binaries/apache-ant-1.9.4-bin.tar.gz'
-        wget $ant_url
-        tar -zxvf apache-ant-1.9.4-bin.tar.gz
-        export ANT_OPTS="-Xmx256M"
-        export ANT_HOME=$dir/apache-ant-1.9.4
-        export PATH=$PATH:$dir/apache-ant-1.9.4/bin
-    fi
+    install_ant;
 fi
+
+say "Checking if Ant was installed correctly."
 
 if ! ant_is_installed
 then
@@ -240,7 +309,11 @@ mkdir -p $dir/frameworks/libs/player/11.1/ && say 'directory created.'
 (wget http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc -O $dir/frameworks/libs/player/11.1/playerglobal.swc && say 'flash player 11.1 downloaded.') || (fail 'Something went wrong. flash player 11.1 not downloaded.')
 
 if [[ $(prompt_yes_no \
-    "We need to add $dir/bin to your system PATH so that you can access the mxmlc flex compiler globaly. Is this OK with you?") == 'yes' ]]
+    "
+    We need to add $dir/bin to your system PATH 
+    so that you can access the mxmlc flex compiler globaly. 
+    Is this OK with you?
+    ") == 'yes' ]]
 then
     echo "export JAVA_HOME=$dir/jdk1.7.0_60" >> ~/.bashrc
     echo "export ANT_HOME=$dir/apache-ant-1.9.4" >> ~/.bashrc
@@ -250,26 +323,21 @@ then
     say "
 flex compiler installed!
 
-To use the flex compiler you need to log out and in of your current terminal or do a 
-
-source ~/.bashrc 
-
-with your current user to use the compiler at once.
-
-mxmlc -help 
-
-to see how to use this compiler or go to http://github.com/aptoma/flex-installer 
+To use the flex compiler you need to log out and in of your current terminal or do a "
+    example "source ~/.bashrc" 
+    say "with your current user to use the compiler at once."
+    example "mxmlc -help" 
+    say "to see how to use this compiler or go to http://github.com/aptoma/flex-installer 
 
 to read some usage scenarios.
 
-You also installed the component compiler for compiling swc libraries like OSMF.
-
-compc -help
-
-" && exit 0
+You also installed the component compiler for compiling swc libraries like OSMF."
+    example "compc -help"
+    exit 0;
 else
     say "Understandable that you don't want to. You may still use the compiler by using an absolute path to the compiler: $(dirname $dir)/mxmlc or $(dirname $dir)/compc if you want to use the component compiler to generate swc"
-    say "If you change your mind later, do the following from the command line: echo 'export PATH=\$PATH:'\"$dir/bin\" >> ~/.bashrc;echo 'export PATH=\$PATH:'\"$dir/jdk1.7.0_60/bin\" >> ~/.bashrc;echo 'export PATH=\$PATH:'\"$dir/apache-ant-1.9.4/bin\" >> ~/.bashrc;echo \"export ANT_HOME=$dir/apache-ant-1.9.4\" >> ~/.bashrc;echo \"export JAVA_HOME=$dir/jdk1.7.0_60\" >> ~/.bashrc"
+    say "If you change your mind later, do the following from the command line:"
+    example "echo 'export PATH=\$PATH:'\"$dir/bin\" >> ~/.bashrc;echo 'export PATH=\$PATH:'\"$dir/jdk1.7.0_60/bin\" >> ~/.bashrc;echo 'export PATH=\$PATH:'\"$dir/apache-ant-1.9.4/bin\" >> ~/.bashrc;echo \"export ANT_HOME=$dir/apache-ant-1.9.4\" >> ~/.bashrc;echo \"export JAVA_HOME=$dir/jdk1.7.0_60\" >> ~/.bashrc"
     # Creating mxml local shell script
     parent=$(dirname $dir)
     echo '#/bin/bash!' > $parent/mxmlc
