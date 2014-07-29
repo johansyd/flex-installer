@@ -64,6 +64,6 @@ Install from: http://o-minds.com/products/flashfirebug
 
 Go to: http://www.demonsterdebugger.com/
 
-###Using Firebug in firefox
+###Using Chrome or Firebug in firefox
 
 clone from: https://github.com/johansyd/console
