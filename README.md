@@ -29,7 +29,7 @@ The installation is done under the current user with all rights granted. You hav
 ###Installation Mac OS x
 
 Flex has a [Air installer](http://flex.apache.org/installer.html) for Mac OS X which is the easiest way.
-If you want to use this installer then install [wget](http://osxdaily.com/2012/05/22/install-wget-mac-os-x/).
+If you do not want to use the [Air installer](http://flex.apache.org/installer.html) then install [wget](http://osxdaily.com/2012/05/22/install-wget-mac-os-x/) and follow the installation guide for Ubuntu.
 
 ###Installation Windows
 
