@@ -1,4 +1,4 @@
-#/bin/bash!
+#!/usr/bin/env bash
 ## Documentation source: https://cwiki.apache.org/confluence/display/FLEX/Installation+help#Installationhelp-Ant-basedinstaller
 ## Latest binaries: http://flex.apache.org/download-binaries.html
 
