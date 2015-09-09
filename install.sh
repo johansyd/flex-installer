@@ -238,30 +238,30 @@ function install_java () {
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 
-if [[ -d apache-flex-sdk-4.12.1-bin && $(prompt_yes_no \
+if [[ -d apache-flex-sdk-4.11.0-bin && $(prompt_yes_no \
     "
-    Everything starting with apache-flex-sdk-4.12.1-bin 
+    Everything starting with apache-flex-sdk-4.11.0-bin 
     will be removed from $dir. 
     Is this OK with you?
     ") == 'yes' ]]
 then
-    rm -rfv $dir/apache-flex-sdk-4.12.1-bin*
+    rm -rfv $dir/apache-flex-sdk-4.11.0-bin*
 else
     warn 'Please rerun this script and choose remove if you get into problems.'
 fi
 
-if ! [[ -f apache-flex-sdk-4.12.1-bin.tar.gz ]]; then
-    (wget http://archive.apache.org/dist/flex/4.12.1/binaries/apache-flex-sdk-4.12.1-bin.tar.gz -O apache-flex-sdk-4.12.1-bin.tar.gz && say 'flex source downloaded.') || (rm -rf $dir/apache-flex-sdk-4.12.1-bin* && fail 'Something went wrong. flex source not downloaded.')
+if ! [[ -f apache-flex-sdk-4.11.0-bin.tar.gz ]]; then
+    (wget http://archive.eu.apache.org/dist/flex/4.11.0/binaries/apache-flex-sdk-4.11.0-bin.tar.gz -O apache-flex-sdk-4.11.0-bin.tar.gz && say 'flex source downloaded.') || (rm -rf $dir/apache-flex-sdk-4.11.0-bin* && fail 'Something went wrong. flex source not downloaded.')
 fi
 
-mkdir -p apache-flex-sdk-4.12.1-bin
+mkdir -p apache-flex-sdk-4.11.0-bin
 
-if [ -z "$(ls -A apache-flex-sdk-4.12.1-bin)" ]; then
-    (tar zxf apache-flex-sdk-4.12.1-bin.tar.gz -C apache-flex-sdk-4.12.1-bin && say 'flex source uncompressed.') || (rm -rf $dir/apache-flex-sdk-4.12.1-bin* && fail 'Something went wrong. flex source not uncompressed.') 
+if [ -z "$(ls -A apache-flex-sdk-4.11.0-bin)" ]; then
+    (tar zxf apache-flex-sdk-4.11.0-bin.tar.gz -C apache-flex-sdk-4.11.0-bin && say 'flex source uncompressed.') || (rm -rf $dir/apache-flex-sdk-4.11.0-bin* && fail 'Something went wrong. flex source not uncompressed.') 
 fi
 
 
-cd $dir/apache-flex-sdk-4.12.1-bin/ && say 'changed directory.'
+cd $dir/apache-flex-sdk-4.11.0-bin/ && say 'changed directory.'
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 
@@ -308,7 +308,7 @@ fi
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 
-(ant -f installer.xml -Dair.sdk.version=2.6 && say 'flex binary built.') || (fail 'Something went wrong. flex binary not built.')
+(ant -f installer.xml -Dair.sdk.version=2.6 && say 'flex binary built.') #|| (fail 'Something went wrong. flex binary not built.')
 
 mkdir -p $dir/frameworks/libs/player/11.1/ && say 'directory created.'
 
