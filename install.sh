@@ -251,7 +251,7 @@ else
 fi
 
 if ! [[ -f apache-flex-sdk-4.12.1-bin.tar.gz ]]; then
-    (wget http://apache.uib.no/flex/4.12.1/binaries/apache-flex-sdk-4.12.1-bin.tar.gz -O apache-flex-sdk-4.12.1-bin.tar.gz && say 'flex source downloaded.') || (rm -rf $dir/apache-flex-sdk-4.12.1-bin* && fail 'Something went wrong. flex source not downloaded.')
+    (wget http://archive.apache.org/dist/flex/4.12.1/binaries/apache-flex-sdk-4.12.1-bin.tar.gz -O apache-flex-sdk-4.12.1-bin.tar.gz && say 'flex source downloaded.') || (rm -rf $dir/apache-flex-sdk-4.12.1-bin* && fail 'Something went wrong. flex source not downloaded.')
 fi
 
 mkdir -p apache-flex-sdk-4.12.1-bin
